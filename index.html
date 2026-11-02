@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI知识库问答助手</title>
+    </head>
+<body>
+    <h1>AI知识库问答助手</h1>
+    <p>上传PDF知识库：</p >
+    <input type="file" id="pdfFile" accept=".pdf">
+    <button onclick="uploadPDF()">上传PDF</button>
+    <div id="uploadResult"></div>
+    <p>请输入你的问题：</p>
+    <select id="role">
+        <option value="Python老师">Python老师</option>
+        <option value="AI老师">AI老师</option>
+        <option value="技术顾问">技术顾问</option>
+    </select>
+    <input type="text"id="question">
+    <button onclick="askAI()">提交问题(RAG)</button>
+    <button onclick="askAgent()">提交任务(Agent)</button>
+    <p>AI回答:</p>
+    <div id="answer"></div>
+    <script>
+    async function askAI() {const question = document.getElementById("question").value;const response = await fetch("http://127.0.0.1:8000/ask", {method: "POST",headers: {"Content-Type": "application/json"},body: JSON.stringify({question: question,role:document.getElementById("role").value})});const data = await response.json();document.getElementById("answer").innerText = data.回答;}
+    async function askAgent() {const question = document.getElementById("question").value;if (!question.trim()) {alert("请先输入任务");return;}document.getElementById("answer").innerText = "Agent 正在处理任务，请稍候……";try {const response = await fetch("http://127.0.0.1:8000/agent", {method: "POST",headers: {"Content-Type": "application/json"},body: JSON.stringify({question: question})});const data = await response.json();document.getElementById("answer").innerText =data.回答 || data.detail || "没有获取到回答";} catch (error) {document.getElementById("answer").innerText ="请求失败，请检查 FastAPI 服务是否正常运行。";console.error(error);}}
+</script>
+<script>
+    async function uploadPDF() {const file = document.getElementById("pdfFile").files[0];if (!file) {alert("请先选择PDF文件");return;}const formData = new FormData();formData.append("file", file);const response = await fetch("http://127.0.0.1:8000/upload_pdf", {method: "POST",body: formData});const data = await response.json();document.getElementById("uploadResult").innerText = data.状态;}
+</script>
+</body>
+</html>

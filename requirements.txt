@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+openai
+chromadb
+sentence-transformers
+modelscope
+pypdf
+python-multipart
