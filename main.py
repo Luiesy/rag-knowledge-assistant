@@ -9,7 +9,7 @@ from skills.knowledge_skill import knowledge_skill
 from skills.calculator_skill import calculator_skill
 import chromadb
 from sentence_transformers import SentenceTransformer
-embedding_model=SentenceTransformer(r"C:\Users\xluzz\.cache\modelscope\models\BAAI--bge-small-zh-v1.5\snapshots\master")
+embedding_model=SentenceTransformer("BAAI/bge-small-zh-v1.5")
 chroma_client = chromadb.PersistentClient(path="./chroma_clean_db")
 collection = chroma_client.get_or_create_collection(name="test")
 uploaded_files=set()
