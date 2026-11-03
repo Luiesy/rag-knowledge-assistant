@@ -1,6 +1,6 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
-model = SentenceTransformer(r"C:\Users\xluzz\.cache\modelscope\models\BAAI--bge-small-zh-v1.5\snapshots\master")
+model = SentenceTransformer("BAAI/bge-small-zh-v1.5")
 client=chromadb.PersistentClient(path="./chroma_clean_db")
 collection=client.get_or_create_collection(name="test")
 with open("knowledge.txt","r",encoding="utf-8")as f:text=f.read()
