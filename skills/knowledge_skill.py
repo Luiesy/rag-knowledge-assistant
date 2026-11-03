@@ -1,7 +1,7 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
 from pathlib import Path
-embedding_model = SentenceTransformer(r"C:\Users\xluzz\.cache\modelscope\models\BAAI--bge-small-zh-v1.5\snapshots\master")
+embedding_model = SentenceTransformer("BAAI/bge-small-zh-v1.5")
 BASE_DIR = Path(__file__).resolve().parent.parent
 chroma_client = chromadb.PersistentClient(path=str(BASE_DIR / "chroma_clean_db"))
 collection = chroma_client.get_collection(name="test")
