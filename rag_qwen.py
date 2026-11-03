@@ -1,7 +1,7 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
-model = SentenceTransformer(r"C:\Users\xluzz\.cache\modelscope\models\BAAI--bge-small-zh-v1.5\snapshots\master")
+model = SentenceTransformer("BAAI/bge-small-zh-v1.5")
 chroma_client = chromadb.PersistentClient(path="./chroma_clean_db")
 collection = chroma_client.get_collection(name="test")
 llm_client = OpenAI(base_url="http://localhost:1234/v1",api_key="lm-studio")
